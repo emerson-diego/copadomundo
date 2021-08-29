@@ -1,0 +1,13 @@
+package com.example.copadomundoback.repository;
+
+import java.util.Optional;
+
+import com.example.copadomundoback.model.Usuario;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+    Optional<Usuario> findByEmail(String email);
+
+}
