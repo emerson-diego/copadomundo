@@ -1,0 +1,9 @@
+div {
+  display: inline-block;
+  margin-right: 2%;
+  width: 25%;
+}
+
+.mat-form-field {
+  width: 100%;
+}

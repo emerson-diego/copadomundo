@@ -1,0 +1,16 @@
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+  {{fileName || "Nenhum arquivo enviado."}}
+
+  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
+  </button>
+  <form [formGroup]="formFileUpload">
+    <mat-form-field appearance="fill"  *ngIf="file != null">
+      <mat-label>Descrição do Arquivo</mat-label>
+      <input matInput placeholder="Descrição do Arquivo" formControlName='descricaoArquivo'>
+    </mat-form-field>
+  </form>
+</div>

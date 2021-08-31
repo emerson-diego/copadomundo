@@ -1,0 +1,62 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+  <img src="assets/images/brasaonovo.png" class="cabecalho" />
+
+  <h1>Contas Públicas</h1>
+  <div class="container login-container" fxLayout="row" fxLayoutAlign="center ">
+    <form [formGroup]="loginForm" fxFlex="100%" fxFlex.sm="50%" fxFlex.xs="90%">
+      <mat-card>
+        <mat-card-title>Login</mat-card-title>
+        <br />
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              id="usuarioInput"
+              matInput
+              placeholder="Usuário"
+              formControlName="usuario"
+            />
+
+            <mat-error
+              id="requiredUsuarioError"
+              *ngIf="loginForm.controls['usuario'].hasError('required')"
+            >
+              Usuário é
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input
+              id="senhaInput"
+              matInput
+              placeholder="Senha"
+              formControlName="senha"
+              type="password"
+            />
+            <mat-error
+              id="requiredSenhaError"
+              *ngIf="loginForm.controls['senha'].hasError('required')"
+            >
+              Senha é
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions class="login-actions">
+          <button
+            mat-raised-button
+            id="login"
+            color="primary"
+            [disabled]="loginForm.invalid || loading"
+            (click)="login()"
+          >
+            Login
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </form>
+  </div>
+</div>

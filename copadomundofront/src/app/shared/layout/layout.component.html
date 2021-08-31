@@ -1,0 +1,181 @@
+<div class="navbar-container" [class.example-is-mobile]="mobileQuery.matches">
+  <!-- Top navbar -->
+  <mat-toolbar class="navbar" color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a href="https://www.trt13.jus.br" class="navbar-brand" matTooltip="Home">
+      <img
+        src="assets/images/logo_padrao_oficial.png"
+        width="180"
+        class="d-inline-block align-top"
+        alt=""
+      />
+    </a>
+
+    <span class="navbar-spacer"> Contas Públicas </span>
+
+    <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="usuario">
+      <mat-icon>person</mat-icon>
+      <span fxShow fxHide.xs>
+        {{ userName }}
+      </span>
+    </button>
+    <mat-menu
+      #userMenu="matMenu"
+      xPosition="before"
+      yPosition="above"
+      [overlapTrigger]="false"
+    >
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log out</span>
+      </a>
+    </mat-menu>
+
+    <button mat-button *ngIf="!usuario">
+      <a [routerLink]="['/auth/login']" style="color: white"
+        ><mat-icon>login</mat-icon></a
+      >
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="navbar-sidenav-container">
+    <!-- Side nav -->
+    <mat-sidenav
+      #snav
+      [opened]="!mobileQuery.matches"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      class="sidenav"
+    >
+      <mat-nav-list>
+        <a
+          mat-list-item
+          [routerLink]="['/dashboard']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> dashboard </mat-icon>
+          <p mat-line>Página principal</p>
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a
+          mat-list-item
+          [routerLink]="['/execucaoOF']"
+          routerLinkActive="active"
+          (click)="previousPage('execucaoOF')"
+        >
+          <mat-icon mat-list-icon> paid </mat-icon>
+          <span mat-line> Execução Orçamentária e Financeira </span>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['/jogo']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> article </mat-icon>
+          <p mat-line>Jogo</p>
+        </a>
+
+        <a
+          mat-list-item
+          [routerLink]="['/instrumentoCooperacao']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> supervisor_account </mat-icon>
+          <p mat-line>Instrumentos de Cooperação</p>
+        </a>
+        <a
+          mat-list-item
+          href="https://www.trt13.jus.br/contratos"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> class </mat-icon>
+          <p mat-line>Contratos</p>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['/comprasConsumo']"
+          routerLinkActive="active"
+          (click)="previousPage('z')"
+        >
+          <mat-icon mat-list-icon> credit_card </mat-icon>
+          <p mat-line>Compras(Consumo)</p>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['/comprasPermanente']"
+          routerLinkActive="active"
+          (click)="previousPage('comprasPermanente')"
+        >
+          <mat-icon mat-list-icon> card_travel </mat-icon>
+          <p mat-line>Compras(Permanente)</p>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['/empresasApenadas']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> comments_disabled </mat-icon>
+          <p mat-line>Empresas Apenadas</p>
+        </a>
+
+        <a
+          mat-list-item
+          href="https://www.trt13.jus.br/transparencia/contas-publicas/obras"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> build </mat-icon>
+          <p mat-line>Obras</p>
+        </a>
+
+        <a
+          mat-list-item
+          [routerLink]="['/suprimentofundos']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> request_page </mat-icon>
+          <p mat-line>Suprimento de Fundos</p>
+        </a>
+
+        <a
+          mat-list-item
+          href="https://www.trt13.jus.br/transparencia/contas-publicas/veiculos.html/view"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> directions_car_filled </mat-icon>
+          <p mat-line>Lista de Veículos</p>
+        </a>
+
+        <a
+          id="push-bottom"
+          mat-list-item
+          [routerLink]="['/about']"
+          routerLinkActive="active"
+        >
+          <mat-icon mat-list-icon> info_outline </mat-icon>
+          <p mat-line>Versão X.y.z</p>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Main content -->
+    <mat-sidenav-content class="sidenav-content">
+      <div class="progress-bar-container">
+        <mat-progress-bar
+          color="accent"
+          mode="indeterminate"
+          *ngIf="spinnerService.visibility | async"
+        >
+        </mat-progress-bar>
+        <!-- <mat-spinner class="spinner" [diameter]="50" *ngIf="showSpinner"></mat-spinner> -->
+      </div>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,13 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Selecione o Período:</mat-label>
+    <mat-select [formControlName]="controlName">
+      <mat-option value="2">Janeiro/Fevereiro</mat-option>
+      <mat-option value="4">Janeiro/Abril</mat-option>
+      <mat-option value="6">Janeiro/Junho</mat-option>
+      <mat-option value="8">Janeiro/Agosto</mat-option>
+      <mat-option value="10">Janeiro/Outubro</mat-option>
+      <mat-option value="12">Janeiro/Dezembro</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

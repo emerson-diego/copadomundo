@@ -1,0 +1,26 @@
+<div [formGroup]="formGroup">
+  <mat-card class="enviarArquivo">
+    <p>Envio do Arquivo *</p>
+
+    <input
+      type="file"
+      class="file-input"
+      accept="application/pdf"
+      (change)="onFileSelectedPrograma($event)"
+      #fileUpload
+    />
+
+    <div class="file-upload">
+      {{ fileName || "Nenhum arquivo enviado ainda" }}
+
+      <button
+        mat-mini-fab
+        color="primary"
+        class="upload-btn"
+        (click)="fileUpload.click()"
+      >
+        <mat-icon>attach_file</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,14 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ titulo }}</mat-label>
+    <mat-select [formControlName]="controlName">
+      <mat-option *ngFor="let opcao of opcoes" [value]="opcao">{{
+        opcao
+      }}</mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="validacao.hasErrorValidar(formControl, 'required')">
+      Campo obrigatório
+    </mat-error>
+  </mat-form-field>
+</div>

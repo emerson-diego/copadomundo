@@ -1,0 +1,9 @@
+.file-input {
+  display: none;
+}
+
+.enviarArquivo {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.6);
+  width: 91%;
+}

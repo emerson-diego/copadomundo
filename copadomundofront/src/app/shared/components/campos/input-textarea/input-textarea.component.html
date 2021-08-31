@@ -1,0 +1,15 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill" [style.width]="widthValue">
+    <mat-label>{{ titulo }}</mat-label>
+    <textarea
+      matInput
+      type="text"
+      [name]="controlName"
+      [formControlName]="controlName"
+    ></textarea>
+
+    <mat-error *ngIf="validacao.hasErrorValidar(formControl, 'required')">
+      Campo obrigatório
+    </mat-error>
+  </mat-form-field>
+</div>

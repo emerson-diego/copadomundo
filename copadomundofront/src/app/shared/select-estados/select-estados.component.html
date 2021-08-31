@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+  <mat-label>Estado</mat-label>
+  <mat-select (selectionChange)="onEstadoSelecionado($event)" [(value)]="estado">
+    <mat-option *ngFor="let estado of estados" [value]="estado">
+      {{estado}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
