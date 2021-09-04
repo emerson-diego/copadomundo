@@ -28,6 +28,7 @@ public class Usuario implements UserDetails {
     private String nome;
     private String email;
     private String senha;
+    private String token;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
@@ -148,6 +149,14 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }

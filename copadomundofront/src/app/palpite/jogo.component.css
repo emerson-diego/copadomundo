@@ -9,10 +9,6 @@
         padding: 10px;
     }
     
-    .mat-card {
-        min-height: 50vh;
-    }
-    
     table {
         border-collapse: separate;
         border-spacing: 0 1em;

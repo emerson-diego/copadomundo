@@ -1,7 +1,7 @@
 package com.example.copadomundoback.controller;
 
 import com.example.copadomundoback.model.LoginForm;
-import com.example.copadomundoback.model.TokenDto;
+import com.example.copadomundoback.model.Usuario;
 import com.example.copadomundoback.security.TokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +26,17 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody LoginForm form) {
+    public ResponseEntity<Usuario> autenticar(@RequestBody LoginForm form) {
         UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
         try {
             Authentication authentication = authManager.authenticate(dadosLogin);
+            Usuario usuario = (Usuario) authentication.getPrincipal();
+
             String token = tokenService.gerarToken(authentication);
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            usuario.setToken(token);
+
+            return ResponseEntity.ok(usuario);
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();
         }

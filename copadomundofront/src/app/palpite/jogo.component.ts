@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Jogo } from './jogo.model';
-import { JogoService } from './jogo.service';
 
 @Component({
   selector: 'app-jogo',
@@ -11,19 +10,20 @@ import { JogoService } from './jogo.service';
 export class JogoComponent implements OnInit {
   jogos: Jogo[] | undefined;
   palpiteForm: FormGroup;
+  @Input() jogo: Jogo;
 
-  constructor(private jogoService: JogoService, private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     console.log('teste');
     this.inicializarForm();
-    this.jogoService.getJogos().subscribe(
+    /* this.jogoService.getJogos().subscribe(
       (jogos) => {
         this.jogos = jogos;
         console.log(jogos);
       },
       (error) => console.log(error)
-    );
+    );*/
   }
 
   inicializarForm(): void {

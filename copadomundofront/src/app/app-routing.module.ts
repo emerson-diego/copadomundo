@@ -11,10 +11,7 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
-  {
-    path: 'jogo',
-    loadChildren: () => import('./jogo/jogo.module').then((m) => m.JogoModule),
-  },
+
   {
     path: 'palpite',
     loadChildren: () =>
