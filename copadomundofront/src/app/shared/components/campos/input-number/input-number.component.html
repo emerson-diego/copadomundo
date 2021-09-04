@@ -1,1 +1,16 @@
-<p>input-number works!</p>
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill" [style.width.px]="valorWidth">
+    <mat-label>{{ titulo }}</mat-label>
+    <input
+      matInput
+      type="number"
+      [name]="controlName"
+      [formControlName]="controlName"
+      [mask]="mask"
+      [min]="min"
+
+    />
+
+
+  </mat-form-field>
+</div>

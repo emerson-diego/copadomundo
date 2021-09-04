@@ -75,3 +75,9 @@ a.mat-list-item.active {
 .mat-list-base .mat-list-option.mat-list-item-with-avatar {
     height: 40px !important;
 }
+
+.flex-box {
+    display: flex;
+    justify-content: space-between;
+    outline: 2px dashed blue;
+}

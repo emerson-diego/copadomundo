@@ -1,0 +1,20 @@
+    ul {
+        list-style-type: none;
+    }
+    
+    .center {
+        margin: auto;
+        width: 50%;
+        /* border: 1px solid blue; */
+        padding: 10px;
+    }
+    
+    .mat-card {
+        min-height: 50vh;
+    }
+    
+    table {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+        border: 1px solid blue;
+    }
