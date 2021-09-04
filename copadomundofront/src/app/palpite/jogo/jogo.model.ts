@@ -1,4 +1,4 @@
-import { Pais } from './pais.model';
+import { Pais } from '../pais.model';
 
 export class Jogo {
   constructor(

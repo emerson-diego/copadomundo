@@ -1,8 +1,10 @@
 <mat-card>
   <mat-card-content>
-    <ng-container *ngFor="let jogo of jogos">
-      <app-jogo [jogo]="jogo"></app-jogo>
-    </ng-container>
+    <div style="width: 70%" class="center">
+      <ng-container *ngFor="let jogo of jogos">
+        <app-jogo [jogo]="jogo"></app-jogo>
+      </ng-container>
+    </div>
 
     <!--    <div style="width: 70%" class="center">
       <ng-container *ngFor="let jogo of jogos">

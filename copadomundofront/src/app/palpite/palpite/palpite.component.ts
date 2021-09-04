@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Jogo } from './jogo.model';
-import { JogoService } from './palpite.service';
+import { Jogo } from '../jogo/jogo.model';
+import { JogoService } from '../jogo/jogo.service';
 
 @Component({
   selector: 'app-palpite',
@@ -21,4 +21,6 @@ export class PalpiteComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  
 }

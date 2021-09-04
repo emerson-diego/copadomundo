@@ -16,7 +16,7 @@
             <td width="50">
               <app-input-number
                 [formGroup]="palpiteForm"
-                controlName="palpite1"
+                controlName="golsPais1"
                 [min]="0"
                 valorWidth="50"
               ></app-input-number>
@@ -27,7 +27,7 @@
             <td width="50">
               <app-input-number
                 [formGroup]="palpiteForm"
-                controlName="palpite2"
+                controlName="golsPais2"
                 [min]="0"
                 valorWidth="50"
               ></app-input-number>
@@ -44,7 +44,7 @@
                 mat-raised-button
                 id="cadastro"
                 color="primary"
-                (click)="onSubmit()"
+                (click)="onSubmit(jogo.id)"
                 [disabled]="!palpiteForm.valid"
               >
                 {{ "Cadastrar" }}

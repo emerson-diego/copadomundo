@@ -1,19 +1,12 @@
 package com.example.copadomundoback.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,24 +18,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "tb_jogo")
-public class Jogo {
+@Table(name = "tb_palpite")
+public class Palpite {
+
+    public Palpite(PalpiteDTO palpiteDTO, Usuario usuario, Jogo jogo) {
+        this.id = palpiteDTO.getId();
+        this.golsPais1 = palpiteDTO.getGolsPais1();
+        this.golsPais2 = palpiteDTO.getGolsPais2();
+        this.usuario = usuario;
+        this.jogo = jogo;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "pais1", referencedColumnName = "id")
-    private Pais pais1;
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "pais2", referencedColumnName = "id")
-    private Pais pais2;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "GMT-03:00")
-    private Date data;
+    private Jogo jogo;
 
     @Column(name = "gols_pais1")
     private Integer golsPais1;

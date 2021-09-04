@@ -30,6 +30,12 @@ public class Usuario implements UserDetails {
     private String senha;
     private String token;
 
+    @ManyToMany(mappedBy = "usuarios")
+    private List<Liga> ligas = new ArrayList<>();
+
+    // @OneToMany(mappedBy = "usuario")
+    // private List<Palpite> palpites = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
