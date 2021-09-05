@@ -2,6 +2,7 @@ package com.example.copadomundoback.service;
 
 import java.util.Optional;
 
+import com.example.copadomundoback.exception.Constantes;
 import com.example.copadomundoback.model.Jogo;
 import com.example.copadomundoback.model.Palpite;
 import com.example.copadomundoback.model.PalpiteDTO;
@@ -11,10 +12,11 @@ import com.example.copadomundoback.repository.PalpiteRepository;
 import com.example.copadomundoback.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PalpiteService {
+public class PalpiteService extends GenericService {
 
     // @Autowired
     PalpiteRepository palpiteRepository;
@@ -23,7 +25,9 @@ public class PalpiteService {
 
     @Autowired
     public PalpiteService(PalpiteRepository palpiteRepository, UsuarioRepository usuarioRepository,
-            JogoRepository jogoRepository) {
+            JogoRepository jogoRepository, MessageSource messageSource) {
+
+        super(messageSource);
         this.palpiteRepository = palpiteRepository;
         this.usuarioRepository = usuarioRepository;
         this.jogoRepository = jogoRepository;
@@ -37,7 +41,15 @@ public class PalpiteService {
         Usuario usuario = usuarioOptional.isPresent() ? usuarioOptional.get() : null;
         Jogo jogo = jogoOptional.isPresent() ? jogoOptional.get() : null;
 
-        Palpite palpite = new Palpite(palpiteDTO, usuario, jogo);
+        Palpite palpite = palpiteRepository.findByUsuarioAndJogo(usuario, jogo);
+
+        if (palpite != null) {
+            palpite.setGolsPais1(palpiteDTO.getGolsPais1());
+            palpite.setGolsPais2(palpiteDTO.getGolsPais2());
+
+        } else {
+            palpite = new Palpite(palpiteDTO, usuario, jogo);
+        }
 
         Palpite palpiteResult = null;
 
@@ -47,7 +59,7 @@ public class PalpiteService {
 
         } catch (Exception e) {
 
-            System.out.println(e.getMessage());
+            throw new RuntimeException(this.getLocalMessage(Constantes.INSERCAO_REGISTRO.getKey()));
         }
         return palpiteResult;
 
