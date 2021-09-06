@@ -56,7 +56,8 @@
 
         <mat-divider></mat-divider>
 
-        <a mat-list-item [routerLink]="['/palpite']" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/palpite']" routerLinkActive="active"
+        (click)="previousPage('palpite')">
           <mat-icon mat-list-icon> article </mat-icon>
           <p mat-line>Palpite</p>
         </a>

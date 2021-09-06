@@ -35,6 +35,13 @@ export class JogoComponent implements OnInit {
 
     console.log('teste');
     this.inicializarForm();
+
+    this.palpiteForm.controls['golsPais1'].setValue(
+      this.jogo?.golsPais1Palpite
+    );
+    this.palpiteForm.controls['golsPais2'].setValue(
+      this.jogo?.golsPais2Palpite
+    );
   }
 
   inicializarForm(): void {
@@ -49,9 +56,9 @@ export class JogoComponent implements OnInit {
     this.palpite.usuarioID = Number(this.usuario.id);
     this.palpite.jogoID = jogoID;
 
-    this.palpiteService.cadastrarSuprimentoFundos(this.palpite).subscribe(
-      (suprimento) => {
-        this.execucaoSucesso(suprimento);
+    this.palpiteService.cadastrarPalpite(this.palpite).subscribe(
+      (palpite) => {
+        this.execucaoSucesso(palpite);
         this.notificationService.show(
           'Cadastro realizado com sucesso!',
           'success'

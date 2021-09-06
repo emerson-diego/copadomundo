@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthenticationService } from 'src/app/auth/auth.service';
+import { Usuario } from 'src/app/core/user/usuario';
 import { Jogo } from '../jogo/jogo.model';
 import { JogoService } from '../jogo/jogo.service';
 
@@ -9,11 +12,20 @@ import { JogoService } from '../jogo/jogo.service';
 })
 export class PalpiteComponent implements OnInit {
   jogos: Jogo[] | undefined;
+  usuario: Usuario;
+  usuarioSubscription: Subscription;
 
-  constructor(private jogoService: JogoService) {}
+  constructor(
+    private jogoService: JogoService,
+    public authService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
-    this.jogoService.getJogos().subscribe(
+    this.usuarioSubscription = this.authService.currentUser.subscribe(
+      (usuario) => (this.usuario = usuario)
+    );
+
+    this.jogoService.getJogos(this.usuario).subscribe(
       (jogos) => {
         this.jogos = jogos;
         console.log(jogos);
@@ -22,5 +34,7 @@ export class PalpiteComponent implements OnInit {
     );
   }
 
-  
+  ngOnDestroy(): void {
+    this.usuarioSubscription.unsubscribe();
+  }
 }

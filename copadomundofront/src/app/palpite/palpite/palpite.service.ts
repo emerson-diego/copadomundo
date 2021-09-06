@@ -21,7 +21,7 @@ export class PalpiteService {
     this.handlerError = httpErrorHandler.createHandleError();
   }
 
-  cadastrarSuprimentoFundos(palpite: Palpite): Observable<Palpite> {
+  cadastrarPalpite(palpite: Palpite): Observable<Palpite> {
     return this.http
       .post<Palpite>(this.urlPalpite, palpite)
       .pipe(catchError(this.handlerError()));
