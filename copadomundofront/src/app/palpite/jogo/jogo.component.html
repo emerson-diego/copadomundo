@@ -19,6 +19,7 @@
                 controlName="golsPais1"
                 [min]="0"
                 valorWidth="50"
+                [disabled]="!antesDoJogoComecar(jogo.data)"
               ></app-input-number>
             </td>
             <td width="25" style="text-align: center; vertical-align: middle">
@@ -30,6 +31,7 @@
                 controlName="golsPais2"
                 [min]="0"
                 valorWidth="50"
+                [disabled]="!antesDoJogoComecar(jogo.data)"
               ></app-input-number>
             </td>
             <td width="50">
@@ -45,7 +47,9 @@
                 id="cadastro"
                 color="primary"
                 (click)="onSubmit(jogo.id)"
-                [disabled]="!palpiteForm.valid"
+                [disabled]="
+                  !palpiteForm.valid || !antesDoJogoComecar(jogo.data)
+                "
               >
                 {{ "Cadastrar" }}
               </button>

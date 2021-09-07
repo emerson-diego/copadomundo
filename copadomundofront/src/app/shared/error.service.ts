@@ -72,7 +72,9 @@ export class HttpErrorHandler {
 
       if (error.status == 403)
         message = 'Usuário sem permissão para esta funcionalidade';
-
+      else {
+        message = error.error.message;
+      }
       // return throwError(message);
       return throwError(message);
     };

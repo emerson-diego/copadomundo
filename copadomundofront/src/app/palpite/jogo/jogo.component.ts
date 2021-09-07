@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
@@ -86,5 +87,12 @@ export class JogoComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.usuarioSubscription.unsubscribe();
+  }
+
+  antesDoJogoComecar(data: Date) {
+    if (moment() > moment(data)) {
+      return false;
+    }
+    return true;
   }
 }
