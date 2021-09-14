@@ -1,8 +1,11 @@
 package com.example.copadomundoback.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 import com.example.copadomundoback.exception.Constantes;
+import com.example.copadomundoback.exception.HorarioPosteriorJogoException;
 import com.example.copadomundoback.model.Jogo;
 import com.example.copadomundoback.model.Palpite;
 import com.example.copadomundoback.model.PalpiteDTO;
@@ -41,28 +44,56 @@ public class PalpiteService extends GenericService {
         Usuario usuario = usuarioOptional.isPresent() ? usuarioOptional.get() : null;
         Jogo jogo = jogoOptional.isPresent() ? jogoOptional.get() : null;
 
+        LocalDateTime now = LocalDateTime.now();
+
+        // jogo.getData().compareTo(now.getd);
+
+        LocalDateTime localDateJogo = jogo.getData().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        boolean isBefore = now.isBefore(localDateJogo);
+
+        if (isBefore) {
+            Palpite palpite = palpiteRepository.findByUsuarioAndJogo(usuario, jogo);
+
+            if (palpite != null) {
+                palpite.setGolsPais1(palpiteDTO.getGolsPais1());
+                palpite.setGolsPais2(palpiteDTO.getGolsPais2());
+
+            } else {
+                palpite = new Palpite(palpiteDTO, usuario, jogo);
+            }
+
+            Palpite palpiteResult = null;
+
+            try {
+
+                palpiteResult = palpiteRepository.save(palpite);
+
+            } catch (Exception e) {
+
+                throw new RuntimeException(this.getLocalMessage(Constantes.INSERCAO_REGISTRO.getKey()));
+            }
+            return palpiteResult;
+        } else {
+            throw new HorarioPosteriorJogoException(this.getLocalMessage(Constantes.HORARIO_POSTERIOR.getKey()));
+        }
+
+    }
+
+    public Palpite buscaPalpite(PalpiteDTO palpiteDTO) {
+
+        Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(palpiteDTO.getUsuarioID());
+        Optional<Jogo> jogoOptional = this.jogoRepository.findById(palpiteDTO.getJogoID());
+
+        Usuario usuario = usuarioOptional.isPresent() ? usuarioOptional.get() : null;
+        Jogo jogo = jogoOptional.isPresent() ? jogoOptional.get() : null;
+
         Palpite palpite = palpiteRepository.findByUsuarioAndJogo(usuario, jogo);
 
-        if (palpite != null) {
-            palpite.setGolsPais1(palpiteDTO.getGolsPais1());
-            palpite.setGolsPais2(palpiteDTO.getGolsPais2());
+        if (palpite == null) {
 
-        } else {
-            palpite = new Palpite(palpiteDTO, usuario, jogo);
+            throw new RuntimeException(this.getLocalMessage(Constantes.REGISTRO_AUSENTE.getKey()));
         }
-
-        Palpite palpiteResult = null;
-
-        try {
-
-            palpiteResult = palpiteRepository.save(palpite);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException(this.getLocalMessage(Constantes.INSERCAO_REGISTRO.getKey()));
-        }
-        return palpiteResult;
-
+        return palpite;
     }
 
 }

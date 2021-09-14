@@ -60,6 +60,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorResponse(item, HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(HorarioPosteriorJogoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> horarioPosteriorJogoException(HorarioPosteriorJogoException item,
+            WebRequest request) {
+        log.error(item.getMessage(), item);
+        return buildErrorResponse(item, HttpStatus.BAD_REQUEST, request);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {

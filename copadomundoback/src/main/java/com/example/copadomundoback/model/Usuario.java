@@ -12,11 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 @Table(name = "TB_USUARIO")
 public class Usuario implements UserDetails {
 
@@ -27,6 +38,7 @@ public class Usuario implements UserDetails {
     private Long id;
     private String nome;
     private String email;
+    @JsonIgnore
     private String senha;
     private String token;
 
@@ -38,6 +50,10 @@ public class Usuario implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
+
+    public Usuario(Long idUsuario) {
+        this.id = idUsuario;
+    }
 
     @Override
     public int hashCode() {
